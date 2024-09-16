@@ -1,0 +1,133 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+    color: #EEEEEE;
+}
+
+header img{
+    height: 10vh;
+    filter: invert(1);
+}
+
+header img.lowEnough{
+    filter: invert(0);
+}
+
+body{
+    background: #FF4A4A;
+    height: 100vh;
+    width: 100vw;
+}
+
+#timerBg{
+    background: #C4FF93;
+    height: 40vh;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+}
+
+.box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 40vh;
+    width: 40vw;
+    background: hsla(0, 0%, 100%, 0.2);
+    border-radius: 53px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.upperField{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: center;
+    height: 30vh;
+    width: 100%;
+}
+
+.upperField h2{
+    font-weight: 100;
+    font-size: 5rem;
+    width: 100%;
+    text-align: center;
+
+    color: #121212;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 20vh;
+}
+
+.upperField #pauseandplay{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 10vh;
+    width: 100%;
+}
+
+.upperField #pauseandplay img{
+    height: 5vh;
+    width: 5vh;
+
+    opacity: 0.7;
+
+    cursor: pointer;
+    filter: invert(1);
+    background: hsla(0, 0%, 85%, 0.50);
+    border-radius: 10px;
+
+    transition: all 0.5s ease;
+}
+
+.upperField #pauseandplay img.lowEnough{
+    filter: invert(0);
+}
+
+.upperField #pauseandplay img.active{
+    opacity: 1;
+
+    transition: all 0.5s ease;
+}
+
+.lowerField{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: center;
+    height: 10vh;
+    width: 100%;
+
+}
+
+.lowerField p{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 10vh;
+    font-size: 1.5rem;
+    color: #121212;
+
+    transition: all 0.5s ease;
+}
+
+h2.lowEnough{
+    color: #EEEEEE;
+}
+
+p.lowEnough{
+    color: #EEEEEE;
+}

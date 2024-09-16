@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+
+    <link rel="stylesheet" href="Timerstyle.css">
+</head>
+<body>
+    <div id="timerBg"></div>
+    <header>
+        <img src="Img/settings_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="" class="settingsIcon">
+    </header>
+    <div class="box">
+        <div class="upperField">
+            <h2 id="timeLeft">00:00</h2>
+            <div id="pauseandplay">
+                <img id="pause" class="active img" src="Img/pause_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg" alt="" onclick="Pause()">
+                <img id="play" class="img" src="Img/play_arrow_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg" alt="" onclick="Play()">
+            </div>
+        </div>
+
+        <div class="lowerField">
+            <p id="timeLearned">Du hast schon 00:00 gelernt</p>
+        </div>
+    </div>
+
+
+    <script src="timerscript.js"></script>
+</body>
+</html>
