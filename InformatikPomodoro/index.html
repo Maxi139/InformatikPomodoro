@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+
+    <link rel="stylesheet" href="Timerstyle.css">
+</head>
+<body>
+    <div id="settings">
+        <input type="text" placeholder="How long">
+        <button>Close</button>
+    </div>
+    <div id="timerBg"></div>
+    <header>
+        <img src="Img/settings_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="" class="settingsIcon">
+    </header>
+    <div class="box">
+        <div class="upperField">
+            <h2 id="timeLeft">0m</h2>
+            <button onclick="Start()">Start</button>
+        </div>
+        <div class="lowerField">
+            <p id="timeLearned">Du hast schon 0m gelernt</p>
+        </div>
+    </div>
+
+
+    <script src="timerscript.js"></script>
+</body>
+</html>
