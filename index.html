@@ -27,7 +27,7 @@
         </div>
         <div class="controller">
             <p class="footerControlls" onclick="DecreaseTimer()">-</p>
-            <input type="number" id="footerDisplay">
+            <input type="number" id="footerDisplay" onchange="SetTimer(this.value)" value="20">
             <p class="footerControlls" onclick="IncreaseTimer()">+</p>
         </div>
     </footer>

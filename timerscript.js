@@ -1,3 +1,4 @@
+var StartTime = 20;
 var timeLeft = 10;
 var timeLearned = 0;
 var timerMin = 20;
@@ -5,7 +6,11 @@ var timerSec = timerMin*60;
 var slider = document.getElementById("timerBg");
 let updateIntervalId;
 var running = false;
-var controllerUP = true;
+
+var controllerUP = false;
+
+var breakOrPause = false;
+var PauseTime = 5/60;
 
 // Bottom Settings Bar
 const footerDisplay = document.getElementById("footerDisplay");
@@ -16,6 +21,10 @@ function updateFooterDisplay() {
     footerDisplay.value = timerMin;
 }
 
+
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
 updateFooterDisplay();
 
 function increaseTime() {
@@ -26,12 +35,26 @@ setInterval(increaseTime, 1000);
 
 function Start() {
     if(!running){
-        running = !running;
-        document.getElementById("startBtn").classList.toggle("running");
-        document.getElementById("startBtn").innerHTML = "läuft...";
-        time = 0;
-        slider.style.animation = "topToBottom " + timerSec +"s linear 1 forwards";
-        updateIntervalId = setInterval(Update, 10);
+        if(breakOrPause){
+            running = !running;
+            document.getElementById("startBtn").classList.toggle("running");
+            document.getElementById("startBtn").innerHTML = "läuft...";
+            time = 0;
+            timerMin = PauseTime;
+            timerSec = timerMin*60;
+            updateFooterDisplay();
+            slider.style.animation = "topToBottom " + timerSec +"s linear 1 reverse";
+            updateIntervalId = setInterval(Update, 10);
+        }else{
+            running = !running;
+            document.getElementById("startBtn").classList.toggle("running");
+            document.getElementById("startBtn").innerHTML = "läuft...";
+            time = 0;
+            timerMin = StartTime;
+            timerSec = timerMin*60;
+            slider.style.animation = "topToBottom " + timerSec +"s linear 1 forwards";
+            updateIntervalId = setInterval(Update, 10);
+        }
     }
 }
 
@@ -44,8 +67,11 @@ function Update() {
         document.getElementById("startBtn").classList.toggle("running");
         document.getElementById("startBtn").innerHTML = "Start";
         slider.style.animation = "none";
+        if(breakOrPause){slider.style.height = "100vh";}else{slider.style.height = "0vh";}
         timeLeft = 0;
         clearInterval(updateIntervalId);
+        delay(100).then(() => Start());
+        if(!breakOrPause){breakOrPause = true;}else{breakOrPause = false;}
     }
 
     if(timeLeft >= 60){
@@ -57,11 +83,22 @@ function Update() {
     }
 
     if(timeLearned >= 60){
-        timeLearned /= 60;
-        timeLearned = Math.floor(timeLearned);
-        document.getElementById("timeLearned").innerHTML = "Du hast schon " + timeLearned.toString() + "m gelernt";
+        if(!breakOrPause){
+            timeLearned /= 60;
+            timeLearned = Math.floor(timeLearned);
+            document.getElementById("timeLearned").innerHTML = "Du hast schon " + timeLearned.toString() + "m gelernt";
+        }else{
+            timeLearned /= 60;
+            timeLearned = Math.floor(timeLearned);
+            document.getElementById("timeLearned").innerHTML = "Schon " + timeLearned.toString() + "m Pause";
+        }
+
     }else{
-        document.getElementById("timeLearned").innerHTML = "Du hast schon " + timeLearned + "s gelernt";
+        if(!breakOrPause){
+            document.getElementById("timeLearned").innerHTML = "Du hast schon " + timeLearned.toString() + "s gelernt";
+        }else{
+            document.getElementById("timeLearned").innerHTML = "Schon " + timeLearned.toString() + "s Pause";
+        }
     }
 
 }
@@ -92,6 +129,7 @@ function IncreaseTimer(){
     if(!running){
         timerMin += 5;
         timerSec = timerMin*60;
+        StartTime = timerMin;
         updateFooterDisplay();
     }else{
         alert("Du musst zuerst stoppen");
@@ -102,8 +140,34 @@ function DecreaseTimer(){
     if(!running){
         timerMin -= 1;
         timerSec = timerMin*60;
+        StartTime = timerMin;
         updateFooterDisplay();
     }else{
         alert("Du musst zuerst stoppen");
     }
 }
+
+function SetTimer(value){
+    if(!running){
+        timerMin = Number(value);
+        timerSec = timerMin*60;
+        StartTime = timerMin;
+        updateFooterDisplay();
+    }else{
+        alert("Du musst zuerst stoppen");
+    }
+}
+
+function StartTimer(lenght){
+    if(running){
+        alert("Du musst zuerst stoppen");
+    }else{
+        StartTime = lenght;
+        timerMin = lenght;
+        timerSec = timerMin*60;
+        updateFooterDisplay();
+        Start();
+    }
+}
+
+goDown();

@@ -18,6 +18,7 @@ body{
     background: #FF4A4A;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
 }
 
 #timerBg{
@@ -27,7 +28,6 @@ body{
     position: absolute;
     bottom: 0;
     z-index: -1;
-
 }
 
 .box{
@@ -242,3 +242,41 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+
+@media (max-width: 768px) {
+    .box{
+        width: 80vw;
+    }
+    footer .goDown{
+        width: 15vw;
+        height: 4vw;
+    }
+    
+    footer .controller{
+        width: 80%;
+    }
+    
+    footer .controller p{
+        height: 50%;
+    }
+  }
+  
+  /* Media query for smaller phones */
+  @media (max-width: 480px) {
+    .box{
+        width: 90vw;
+    }
+    footer .goDown{
+        width: 20vw;
+        height: 5vw;
+    }
+    
+    footer .controller{
+        width: 90%;
+    }
+    
+    footer .controller p{
+        height: 50%;
+    }
+  }
