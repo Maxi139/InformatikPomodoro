@@ -252,6 +252,11 @@ input[type=number] {
         width: 15vw;
         height: 4vw;
     }
+
+    footer input{
+        pointer-events: none;
+        user-select: none;
+    }
     
     footer .controller{
         width: 80%;
