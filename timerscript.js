@@ -1,61 +1,33 @@
 var timeLeft = 10;
 var timeLearned = 0;
-var timer = 10;
-var refreshIntervallId;
+var timer = 0.5;
+var slider = document.getElementById("timerBg");
+let updateIntervalId;
 
-slider = document.getElementById("timerBg");
+time = 0;
 
-var height = window.innerHeight / timer * timeLeft;
-slider.style.height = height + "px";
-
-function decreaseTime() {
-    if (timeLeft > 0) {
-        timeLeft--;
-        timeLearned++;
-        height = window.innerHeight / timer * timeLeft;
-        slider.style.height = height + "px";
-        document.getElementById("timeLeft").innerHTML = timeLeft + ":00";
-        document.getElementById("timeLearned").innerHTML = "Du hast schon " + timeLearned + ":00 gelernt";
-    } else if (timeLeft == 0) {
-        Pause();
-    }
-
-    if(height <= (window.innerHeight / 10) * 9) {
-        document.getElementsByClassName("settingsIcon")[0].classList.add("lowEnough");
-    } else {
-        document.getElementsByClassName("settingsIcon")[0].classList.remove("lowEnough");
-    }
-    if (height <= window.innerHeight / 3) {
-        document.getElementById("timeLeft").classList.add("lowEnough");
-        document.getElementById("timeLearned").classList.add("lowEnough");
-
-        // Loop through elements with class name 'img' and add class
-        var imgElements = document.getElementsByClassName("img");
-        for (var i = 0; i < imgElements.length; i++) {
-            imgElements[i].classList.add("lowEnough");
-        }
-    } else {
-        document.getElementById("timeLeft").classList.remove("lowEnough");
-        document.getElementById("timeLearned").classList.remove("lowEnough");
-
-        // Loop through elements with class name 'img' and remove class
-        var imgElements = document.getElementsByClassName("img");
-        for (var i = 0; i < imgElements.length; i++) {
-            imgElements[i].classList.remove("lowEnough");
-        }
-    }
+function increaseTime() {
+    time++;
 }
 
-function Play() {
-    document.getElementById("pause").classList.toggle("active");
-    document.getElementById("play").classList.toggle("active");
+setInterval(increaseTime, timer*60000);
 
-    refreshIntervallId = setInterval(decreaseTime, 1000); // Set the interval and assign it to the broader variable
+function Start() {
+    time = 0;
+    slider.style.animation = "topToBottom " + timer*600 +"s linear 1 forwards";
+    updateIntervalId = setInterval(Update, 10);  // Korrekte Variable benutzen
 }
 
-function Pause() {
-    document.getElementById("pause").classList.toggle("active");
-    document.getElementById("play").classList.toggle("active");
+function Update() {
+    timeLearned = time;
+    timeLeft = timer - timeLearned;
 
-    clearInterval(refreshIntervallId); // Clear the interval using the broader scoped variable
+    if (timeLeft <= 0) {
+        slider.style.animation = "none";
+        timeLeft = 0;  // Stelle sicher, dass timeLeft nicht negativ wird
+        clearInterval(updateIntervalId);  // Stoppe den Timer
+    }
+
+    document.getElementById("timeLeft").innerHTML = timeLeft.toString() +"m";
+    document.getElementById("timeLearned").innerHTML = "Du hast schon " + timeLearned + "m gelernt";
 }

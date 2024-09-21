@@ -22,11 +22,12 @@ body{
 
 #timerBg{
     background: #C4FF93;
-    height: 40vh;
+    height: 0vh;
     width: 100vw;
     position: absolute;
     bottom: 0;
     z-index: -1;
+
 }
 
 .box{
@@ -50,7 +51,7 @@ body{
     flex-direction: column;
     align-items: center;
     align-items: center;
-    height: 30vh;
+    height: 20vh;
     width: 100%;
 }
 
@@ -79,36 +80,12 @@ body{
     width: 100%;
 }
 
-.upperField #pauseandplay img{
-    height: 5vh;
-    width: 5vh;
-
-    opacity: 0.7;
-
-    cursor: pointer;
-    filter: invert(1);
-    background: hsla(0, 0%, 85%, 0.50);
-    border-radius: 10px;
-
-    transition: all 0.5s ease;
-}
-
-.upperField #pauseandplay img.lowEnough{
-    filter: invert(0);
-}
-
-.upperField #pauseandplay img.active{
-    opacity: 1;
-
-    transition: all 0.5s ease;
-}
-
 .lowerField{
     display: flex;
     flex-direction: column;
     align-items: center;
     align-items: center;
-    height: 10vh;
+    height: 20vh;
     width: 100%;
 
 }
@@ -130,4 +107,46 @@ h2.lowEnough{
 
 p.lowEnough{
     color: #EEEEEE;
+}
+
+@keyframes topToBottom{
+    from{
+        height: 100vh;
+    }
+
+    to{
+        height: 0;
+    }
+}
+
+
+button{
+    width: 60%;
+    height: 30%;
+    background: #ffffff79;
+    color: #121212;
+    border: none;
+    border-radius: 10px;
+}
+
+
+#settings{
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    height: 10vh;
+
+    position: absolute;
+    left: 10vw;
+}
+
+#settings input{
+    width: 75vw;
+    border-radius: 10px;
+    border: none;
+    padding: 0 0 0 1vw;
+    background: #eeeeeeb3;
 }
