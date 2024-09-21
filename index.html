@@ -11,23 +11,26 @@
     <link rel="stylesheet" href="Timerstyle.css">
 </head>
 <body>
-    <div id="settings">
-        <input type="text" placeholder="How long">
-        <button>Close</button>
-    </div>
     <div id="timerBg"></div>
-    <header>
-        <img src="Img/settings_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" alt="" class="settingsIcon">
-    </header>
     <div class="box">
         <div class="upperField">
             <h2 id="timeLeft">0m</h2>
-            <button onclick="Start()">Start</button>
+            <button onclick="Start()" id="startBtn">Start</button>
         </div>
         <div class="lowerField">
             <p id="timeLearned">Du hast schon 0m gelernt</p>
         </div>
     </div>
+    <footer>
+        <div class="goDown" onclick="toggleSettings()">
+            <img src="img/Pfeil nach unten.svg" alt="">
+        </div>
+        <div class="controller">
+            <p class="footerControlls" onclick="DecreaseTimer()">-</p>
+            <input type="number" id="footerDisplay">
+            <p class="footerControlls" onclick="IncreaseTimer()">+</p>
+        </div>
+    </footer>
 
 
     <script src="timerscript.js"></script>

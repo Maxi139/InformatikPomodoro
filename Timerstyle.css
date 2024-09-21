@@ -150,3 +150,95 @@ button{
     padding: 0 0 0 1vw;
     background: #eeeeeeb3;
 }
+
+.running{
+    opacity: 0.5;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+footer .goDown{
+    width: 5vw;
+    height: 2vw;
+
+    position: absolute;
+    bottom: calc(100% - 2vw);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #eeeeeeb3;
+    border-radius: 10px 10px 0 0;
+
+    transition: all 0.5s ease;
+}
+
+footer .goDown img{
+    height: 90%;
+
+    transition: all 0.5s ease;
+}
+
+footer .goDown.down{
+    bottom: 0;
+}
+
+footer .goDown.down img{
+    transform: rotate(180deg);
+}
+
+footer .controller{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: calc(100% - 2vw);
+    width: 30%;
+    background: #eeeeeeb3;
+    border-radius: 30px 30px 0 0;
+
+    transition: all 0.5s ease;
+}
+
+footer .controller p{
+    height: 100%;
+    width: max-content;
+    text-align: center;
+    font-size: 3rem;
+    color: #000000;
+    position: relative;
+}
+
+footer .controller input{
+    height: 70%;
+    width: 30%;
+    border: none;
+    background: #eeeeeeb3;
+    color: #000000;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
