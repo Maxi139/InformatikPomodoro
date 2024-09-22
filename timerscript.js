@@ -10,7 +10,10 @@ var running = false;
 var controllerUP = false;
 
 var breakOrPause = false;
-var PauseTime = 5/60;
+var PauseTime = 5;
+
+var PauseAudio = new Audio('Ping Sound 89718.mp3');
+var StartAudio = new Audio('Ding Sound.mp3');
 
 // Bottom Settings Bar
 const footerDisplay = document.getElementById("footerDisplay");
@@ -67,7 +70,7 @@ function Update() {
         document.getElementById("startBtn").classList.toggle("running");
         document.getElementById("startBtn").innerHTML = "Start";
         slider.style.animation = "none";
-        if(breakOrPause){slider.style.height = "100vh";}else{slider.style.height = "0vh";}
+        if(breakOrPause){slider.style.height = "100vh"; StartAudio.play();}else{slider.style.height = "0vh"; PauseAudio.play();}
         timeLeft = 0;
         clearInterval(updateIntervalId);
         delay(100).then(() => Start());
