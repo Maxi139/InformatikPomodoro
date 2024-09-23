@@ -17,6 +17,9 @@ var StartAudio = new Audio('Ding Sound.mp3');
 
 var timeLeftSec = 0;
 
+//Modes
+var dark = false;
+
 // Bottom Settings Bar
 const footerDisplay = document.getElementById("footerDisplay");
 
@@ -39,6 +42,10 @@ function increaseTime() {
 setInterval(increaseTime, 1000);
 
 function Start() {
+    if(dark == true){
+        document.getElementById("mode1").style.visibility = "visible";
+        document.getElementById("mode1").style.animation = "fade-out 0.5s linear 1 forwards";
+    }
     if(controllerUP){toggleSettings();}
     if(!running){
         if(breakOrPause){
@@ -78,6 +85,15 @@ function Update() {
         clearInterval(updateIntervalId);
         delay(100).then(() => Start());
         if(!breakOrPause){breakOrPause = true;}else{breakOrPause = false;}
+    }
+
+    if(timeLeft <= 10){
+        console.log("10 Sekunden verbleibend");
+        if(dark == true){
+            console.log("10 Sekunden verbleibend + true");
+            document.getElementById("mode1").style.visibility = "visible";
+            document.getElementById("mode1").style.animation =  "fadeOut 10s reverse forwards";
+        }
     }
 
     timeLeftMin = timeLeft / 60;
@@ -175,6 +191,11 @@ function StartTimer(lenght){
         updateFooterDisplay();
         Start();
     }
+}
+
+function toggleModes(){
+    dark = !dark;
+    console.log("Modus: " + dark.toString());
 }
 
 goDown();

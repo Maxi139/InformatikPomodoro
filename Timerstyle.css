@@ -19,6 +19,8 @@ body{
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+
+    animation: none;
 }
 
 #timerBg{
@@ -62,6 +64,8 @@ body{
     align-items: center;
 
     height: 70%;
+
+    z-index: 2;
 }
 
 @keyframes topToBottom{
@@ -240,3 +244,27 @@ input[type=number] {
         height: 50%;
     }
   }
+
+  #mode1{
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    opacity: 0;
+    visibility: hidden;
+
+    animation-fill-mode: forwards;
+
+    z-index: 3;
+  }
+
+@keyframes fade-out {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+        background: black;
+    }
+}
