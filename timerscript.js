@@ -133,11 +133,15 @@ function IncreaseTimer(){
 
 function DecreaseTimer(){
     if(!running){
-        timerMin -= 1;
-        timerSec = timerMin*60;
-        StartTime = timerMin;
-        updateFooterDisplay();
-        updateTimerDisplay();
+        if(timerMin - 1 > 0){
+            timerMin -= 1;
+            timerSec = timerMin*60;
+            StartTime = timerMin;
+            updateFooterDisplay();
+            updateTimerDisplay();
+        }else{
+            alert("Der Timer kann nicht ins Minus gehen oder 0 sein");
+        }
     }else{
         alert("Du musst zuerst stoppen");
     }
@@ -145,11 +149,15 @@ function DecreaseTimer(){
 
 function SetTimer(value){
     if(!running){
-        timerMin = Number(value);
-        timerSec = timerMin*60;
-        StartTime = timerMin;
-        updateFooterDisplay();
-        updateTimerDisplay();
+        if(Number(value) > 0){
+            timerMin = Number(value);
+            timerSec = timerMin*60;
+            StartTime = timerMin;
+            updateFooterDisplay();
+            updateTimerDisplay();
+        }else{
+            alert("Der Timer kann nicht ins Minus gehen oder 0 sein");
+        }
     }else{
         alert("Du musst zuerst stoppen");
     }
