@@ -15,6 +15,8 @@ var PauseTime = 5;
 var PauseAudio = new Audio('Ping Sound 89718.mp3');
 var StartAudio = new Audio('Ding Sound.mp3');
 
+var timeLeftSec = 0;
+
 // Bottom Settings Bar
 const footerDisplay = document.getElementById("footerDisplay");
 
@@ -37,6 +39,7 @@ function increaseTime() {
 setInterval(increaseTime, 1000);
 
 function Start() {
+    if(controllerUP){toggleSettings();}
     if(!running){
         if(breakOrPause){
             running = !running;
@@ -77,35 +80,23 @@ function Update() {
         if(!breakOrPause){breakOrPause = true;}else{breakOrPause = false;}
     }
 
-    if(timeLeft >= 60){
-        timeLeft /= 60;
-        timeLeft = Math.floor(timeLeft);
-        document.getElementById("timeLeft").innerHTML = timeLeft.toString() +"m";
-    }else{
-        document.getElementById("timeLeft").innerHTML = timeLeft.toString() +"s";
-    }
+    timeLeftMin = timeLeft / 60;
+    timeLeftMin = Math.floor(timeLeftMin);
+    timeLeftSec = timeLeft-(timeLeftMin*60);
 
-    if(timeLearned >= 60){
-        if(!breakOrPause){
-            timeLearned /= 60;
-            timeLearned = Math.floor(timeLearned);
-            document.getElementById("timeLearned").innerHTML = "Du hast schon " + timeLearned.toString() + "m gelernt";
-        }else{
-            timeLearned /= 60;
-            timeLearned = Math.floor(timeLearned);
-            document.getElementById("timeLearned").innerHTML = "Schon " + timeLearned.toString() + "m Pause";
-        }
-
-    }else{
-        if(!breakOrPause){
-            document.getElementById("timeLearned").innerHTML = "Du hast schon " + timeLearned.toString() + "s gelernt";
-        }else{
-            document.getElementById("timeLearned").innerHTML = "Schon " + timeLearned.toString() + "s Pause";
-        }
+    if(timeLeftSec.toString().length == 1){
+        timeLeftSec = "0" + timeLeftSec;
     }
+    if(timeLeftMin.toString().length == 1){
+        timeLeftMin = "0" + timeLeftMin;
+    }
+    document.getElementById("timeLeft").innerHTML = timeLeftMin.toString() +":"+ timeLeftSec.toString();
 
 }
 
+function updateTimerDisplay(){
+    document.getElementById("timeLeft").innerHTML = timerMin.toString() + ":00";
+}
 
 // Bottom Settings Bar
 function goDown() {
@@ -134,6 +125,7 @@ function IncreaseTimer(){
         timerSec = timerMin*60;
         StartTime = timerMin;
         updateFooterDisplay();
+        updateTimerDisplay();
     }else{
         alert("Du musst zuerst stoppen");
     }
@@ -145,6 +137,7 @@ function DecreaseTimer(){
         timerSec = timerMin*60;
         StartTime = timerMin;
         updateFooterDisplay();
+        updateTimerDisplay();
     }else{
         alert("Du musst zuerst stoppen");
     }
@@ -156,10 +149,13 @@ function SetTimer(value){
         timerSec = timerMin*60;
         StartTime = timerMin;
         updateFooterDisplay();
+        updateTimerDisplay();
     }else{
         alert("Du musst zuerst stoppen");
     }
 }
+
+
 
 function StartTimer(lenght){
     if(running){
