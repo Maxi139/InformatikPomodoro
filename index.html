@@ -18,18 +18,25 @@
         <h2 id="timeLeft">20:00</h2>
         <button onclick="Start()" id="startBtn">Start</button>
     </div>
-    <footer>
-        <div class="goDown" onclick="toggleSettings()">
-            <img src="/img/Pfeil nach unten.svg" alt="">
+    <div class="settings">
+        <img id="icon" onclick="toggleVisibility()" src="Img/clock.svg">
+        <div id="container">
+            <div id="firstSetting">            
+                <p class="footerControlls" onclick="DecreaseTimer()">-</p>
+                <input type="number" id="footerDisplay" onchange="SetTimer(this.value)" value="20">
+                <p class="footerControlls" onclick="IncreaseTimer()">+</p>
+            </div>
+
+            <div id="secondSetting">            
+                <p class="footerControlls" onclick="DecreaseTimer()">-</p>
+                <input type="number" id="footerDisplay" onchange="SetTimer(this.value)" value="20">
+                <p class="footerControlls" onclick="IncreaseTimer()">+</p>
+            </div>
         </div>
-        <div class="controller">
-            <p class="footerControlls" onclick="DecreaseTimer()">-</p>
-            <input type="number" id="footerDisplay" onchange="SetTimer(this.value)" value="20">
-            <p class="footerControlls" onclick="IncreaseTimer()">+</p>
-        </div>
-    </footer>
+    </div>
 
 
     <script src="timerscript.js"></script>
+    <script src="buttons.js"></script>
 </body>
 </html>
