@@ -114,27 +114,6 @@ function updateTimerDisplay(){
     document.getElementById("timeLeft").innerHTML = timerMin.toString() + ":00";
 }
 
-// Bottom Settings Bar
-function goDown() {
-    controllerUP = false;
-    document.getElementsByClassName("goDown")[0].classList.toggle("down");
-    document.getElementsByClassName("controller")[0].style.bottom = "calc((100% - 2vw)*-1)";
-}
-
-function goUp() {
-    controllerUP = true;
-    document.getElementsByClassName("goDown")[0].classList.toggle("down");
-    document.getElementsByClassName("controller")[0].style.bottom = "0";
-}
-
-function toggleSettings() {
-    if (controllerUP) {
-        goDown();
-    } else {
-        goUp();
-    }
-}
-
 function IncreaseTimer(){
     if(!running){
         timerMin += 5;
@@ -197,5 +176,3 @@ function toggleModes(){
     dark = !dark;
     console.log("Modus: " + dark.toString());
 }
-
-goDown();
