@@ -36,7 +36,7 @@ body{
 
 #timerBg{
     background: var(--thirdColor);
-    height: 0vh;
+    height: 0%;
     width: 100vw;
     position: absolute;
     bottom: 0;

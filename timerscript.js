@@ -58,7 +58,7 @@ function Start() {
             time = 0;
             timerMin = StartTime;
             timerSec = timerMin*60;
-            slider.style.animation = "topToBottom " + timerSec +"s linear 1 forwards";
+            slider.style.animation = "topToBottom " + timerSec+"s linear 1 forwards";
             updateIntervalId = setInterval(Update, 10);
         }
     }
