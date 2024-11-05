@@ -17,16 +17,13 @@ var StartAudio = new Audio('Ding Sound.mp3');
 
 var timeLeftSec = 0;
 
-//Modes
-var dark = false;
-
-// Bottom Settings Bar
-const footerDisplay = document.getElementById("footerDisplay");
+const Themes = ["#EEEEEE---#FF4A4A---#C4FF93---#121212---#EEEEEE76", "#121212---#62466B---#8C93A8---#F4ECD6---#F4ECD676", "#EEE---#558B6E---#06D6A0---#121212---#EEEEEE76", "#EEE---#F79256---#FBD1A2---#262626---#EEEEEE76", "#EEE---#3C91E6---#B8F2E6---#342E37---#EEEEEE76", "#121212---#190B28---#685762---#FFE9CE---#12121276"];
 
 time = 0;
 
 function updateFooterDisplay() {
-    footerDisplay.value = timerMin;
+    document.getElementById("SetTimer").value = timerMin;
+    document.getElementById("SetPause").value = PauseTime;
 }
 
 
@@ -42,10 +39,6 @@ function increaseTime() {
 setInterval(increaseTime, 1000);
 
 function Start() {
-    if(dark == true){
-        document.getElementById("mode1").style.visibility = "visible";
-        document.getElementById("mode1").style.animation = "fade-out 0.5s linear 1 forwards";
-    }
     if(controllerUP){toggleSettings();}
     if(!running){
         if(breakOrPause){
@@ -89,11 +82,6 @@ function Update() {
 
     if(timeLeft <= 10){
         console.log("10 Sekunden verbleibend");
-        if(dark == true){
-            console.log("10 Sekunden verbleibend + true");
-            document.getElementById("mode1").style.visibility = "visible";
-            document.getElementById("mode1").style.animation =  "fadeOut 10s reverse forwards";
-        }
     }
 
     timeLeftMin = timeLeft / 60;
@@ -114,24 +102,36 @@ function updateTimerDisplay(){
     document.getElementById("timeLeft").innerHTML = timerMin.toString() + ":00";
 }
 
-function IncreaseTimer(){
+function IncreaseTimer(whichOne){
     if(!running){
-        timerMin += 5;
-        timerSec = timerMin*60;
-        StartTime = timerMin;
+        if(whichOne == 1){
+            timerMin += 5;
+            timerSec = timerMin*60;
+            StartTime = timerMin;
+        }else{
+            PauseTime += 1;
+            StartTime = timerMin;
+        }
+
         updateFooterDisplay();
         updateTimerDisplay();
     }else{
         alert("Du musst zuerst stoppen");
     }
+    console.log(PauseTime)
 }
 
-function DecreaseTimer(){
+function DecreaseTimer(whichOne){
     if(!running){
         if(timerMin - 1 > 0){
-            timerMin -= 1;
-            timerSec = timerMin*60;
-            StartTime = timerMin;
+            if(whichOne == 1){
+                timerMin -= 1;
+                timerSec = timerMin*60;
+                StartTime = timerMin;
+            }else{
+                PauseTime -= 1;
+                StartTime = timerMin;
+            }
             updateFooterDisplay();
             updateTimerDisplay();
         }else{
@@ -140,14 +140,20 @@ function DecreaseTimer(){
     }else{
         alert("Du musst zuerst stoppen");
     }
+    console.log(PauseTime)
 }
 
-function SetTimer(value){
+function SetTimer(value, whichOne){
     if(!running){
         if(Number(value) > 0){
-            timerMin = Number(value);
-            timerSec = timerMin*60;
-            StartTime = timerMin;
+            if(whichOne == 1){
+                timerMin = Number(value);
+                timerSec = timerMin*60;
+                StartTime = timerMin;
+            }else{
+                PauseTime = Number(value);
+                StartTime = timerMin;
+            }
             updateFooterDisplay();
             updateTimerDisplay();
         }else{
@@ -156,6 +162,7 @@ function SetTimer(value){
     }else{
         alert("Du musst zuerst stoppen");
     }
+    console.log(PauseTime)
 }
 
 
@@ -172,7 +179,32 @@ function StartTimer(lenght){
     }
 }
 
-function toggleModes(){
-    dark = !dark;
-    console.log("Modus: " + dark.toString());
+
+function ChangeTheme(number = 0){
+    console.log(number)
+    console.log(Themes[number])
+
+    let splitTheme = Themes[number].split("---")
+    console.log(splitTheme)
+
+    document.documentElement.style.setProperty('--firstColor', splitTheme[0]);
+    document.documentElement.style.setProperty('--secondColor', splitTheme[1]);
+    document.documentElement.style.setProperty('--thirdColor', splitTheme[2]);
+    document.documentElement.style.setProperty('--fourthColor', splitTheme[3]);
+    document.documentElement.style.setProperty('--fiftColor', splitTheme[4]);
+
+    localStorage.setItem("theme", number)
+}
+
+
+if(localStorage.getItem("theme")){
+    ChangeTheme(localStorage.getItem("theme"))
+}else{
+    ChangeTheme(0)
+}
+
+function setAudioVolume(number){
+    audio.volume = number/100
+
+    console.log(audio.volume)
 }
