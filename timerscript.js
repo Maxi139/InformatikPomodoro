@@ -73,15 +73,21 @@ function Update() {
         document.getElementById("startBtn").classList.toggle("running");
         document.getElementById("startBtn").innerHTML = "Start";
         slider.style.animation = "none";
-        if(breakOrPause){slider.style.height = "100vh"; StartAudio.play();}else{slider.style.height = "0vh"; PauseAudio.play();}
+        if(breakOrPause){
+            slider.style.height = "100%";
+            StartAudio.play();
+            document.getElementById("overlay").style.animation = "overlayAnimation 1s";
+            setTimeout(() => document.getElementById("overlay").style.animation = "none", 1000);
+        }else{
+            slider.style.height = "0vh";
+            PauseAudio.play();
+            document.getElementById("overlay").style.animation = "overlayAnimation 1s";
+            setTimeout(() => document.getElementById("overlay").style.animation = "none", 1000);
+        }
         timeLeft = 0;
         clearInterval(updateIntervalId);
         delay(100).then(() => Start());
         if(!breakOrPause){breakOrPause = true;}else{breakOrPause = false;}
-    }
-
-    if(timeLeft <= 10){
-        console.log("10 Sekunden verbleibend");
     }
 
     timeLeftMin = timeLeft / 60;
@@ -118,7 +124,6 @@ function IncreaseTimer(whichOne){
     }else{
         alert("Du musst zuerst stoppen");
     }
-    console.log(PauseTime)
 }
 
 function DecreaseTimer(whichOne){
@@ -140,7 +145,6 @@ function DecreaseTimer(whichOne){
     }else{
         alert("Du musst zuerst stoppen");
     }
-    console.log(PauseTime)
 }
 
 function SetTimer(value, whichOne){
@@ -162,7 +166,6 @@ function SetTimer(value, whichOne){
     }else{
         alert("Du musst zuerst stoppen");
     }
-    console.log(PauseTime)
 }
 
 
@@ -181,11 +184,8 @@ function StartTimer(lenght){
 
 
 function ChangeTheme(number = 0){
-    console.log(number)
-    console.log(Themes[number])
 
     let splitTheme = Themes[number].split("---")
-    console.log(splitTheme)
 
     document.documentElement.style.setProperty('--firstColor', splitTheme[0]);
     document.documentElement.style.setProperty('--secondColor', splitTheme[1]);
@@ -210,3 +210,4 @@ function setAudioVolume(number){
 
 volumeSlider.value = 50;
 setAudioVolume(50);
+
