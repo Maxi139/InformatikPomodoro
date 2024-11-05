@@ -17,7 +17,7 @@ var StartAudio = new Audio('Ding Sound.mp3');
 
 var timeLeftSec = 0;
 
-const Themes = ["#EEEEEE---#FF4A4A---#C4FF93---#121212---#EEEEEE76", "#121212---#62466B---#8C93A8---#F4ECD6---#F4ECD676", "#EEE---#558B6E---#06D6A0---#121212---#EEEEEE76", "#EEE---#F79256---#FBD1A2---#262626---#EEEEEE76", "#EEE---#3C91E6---#B8F2E6---#342E37---#EEEEEE76", "#121212---#190B28---#685762---#FFE9CE---#12121276"];
+const Themes = ["#EEEEEE---#FF4A4A---#C4FF93---#121212---#EEEEEE76", "#F4ECD6---#62466B---#8C93A8---#F4ECD6---#F4ECD676", "#EEE---#558B6E---#06D6A0---#EEE---#EEEEEE76", "#EEE---#F79256---#FBD1A2---#EEE---#EEEEEE76", "#EEE---#3C91E6---#B8F2E6---#EEE---#EEEEEE76", "#EEE---#190B28---#685762---#FFE9CE---#EEEEEE46"];
 
 time = 0;
 
@@ -204,7 +204,9 @@ if(localStorage.getItem("theme")){
 }
 
 function setAudioVolume(number){
-    audio.volume = number/100
-
-    console.log(audio.volume)
+    PauseAudio.volume = number/100;
+    StartAudio.volume = number/100;
 }
+
+volumeSlider.value = 50;
+setAudioVolume(50);
