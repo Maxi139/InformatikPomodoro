@@ -63,6 +63,35 @@ p{
     float: right;
 }
 
+.right img{
+    position: absolute;
+    height: 80vh;
+    right: 15vw;
+}
+
+
+.right #firstImg{
+    z-index: 30;
+}
+.right #secondImg{
+    transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.right #thirdImg{
+    transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+}
+
+#firstImg:hover + #secondImg{
+    transform: rotate(-15deg);
+    right: 25vw;
+}
+
+#firstImg:hover ~ #thirdImg{
+    transform: rotate(15deg);
+    right: 5vw;
+}
+
+
 header{
     width: 100vw;
     height: 10vh;
@@ -71,7 +100,6 @@ header{
     justify-content: center;
     align-items: center;
 
-    position: fixed;
     background-color: #FFC49B;
 }
 
@@ -84,4 +112,52 @@ header{
 #thirdSection .right{
     height: 90%;
     margin: 0;
+}
+
+#thirdSection .right .images{
+    position: absolute;
+    right: 5vw;
+}
+
+#thirdSection .right .images *{
+    transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#thirdSection .right .images #thfirstImg{
+    z-index: 10;
+}
+
+#thirdSection .right .images #thsecondImg{
+    z-index: 9;
+}
+
+#thirdSection .right .images #ththirdImg{
+    z-index: 8;
+}
+
+#thirdSection .right .images #thfourthImg{
+    z-index: 7;
+}
+
+#thirdSection .right .images #thfiftImg{
+    z-index: 6;
+}
+
+#thirdSection .right .images #thfirstImg:hover + #thsecondImg{
+    transform: rotate(-15deg) translateX(-50px) translateY(-50px);
+}
+
+
+#thirdSection .right .images #thfirstImg:hover ~ #ththirdImg{
+    transform: rotate(15deg) translateX(50px) translateY(-50px);
+}
+
+
+#thirdSection .right .images #thfirstImg:hover ~ #thfourthImg{
+    transform: rotate(-30deg) translateX(-100px) translateY(-100px);
+}
+
+
+#thirdSection .right .images #thfirstImg:hover ~ #thfiftImg{
+    transform: rotate(30deg) translateX(100px) translateY(-100px);
 }
