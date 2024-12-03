@@ -13,7 +13,7 @@ body{
 
 section{
     width: 100%;
-    height: 100lvh;
+    height: 100vh;
     overflow: hidden;
 }
 
@@ -50,15 +50,14 @@ p{
 }
 
 .left{
-    margin: 15% 0 15% 0;
-    height: 70%;
+    height: 100%;
     width: 50%;
     float: left;
+
 }
 
 .right{
-    margin: 15% 0 15% 0;
-    height: 70%;
+    height: 100%;
     width: 50%;
     float: right;
 }
@@ -72,14 +71,18 @@ p{
 
 .right #firstImg{
     z-index: 30;
+    filter: drop-shadow(5px 5px 5px #222);
 }
 .right #secondImg{
     transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(5px 5px 5px #222);
 }
 .right #thirdImg{
     transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(5px 5px 5px #222);
     
 }
+
 
 #firstImg:hover + #secondImg{
     transform: rotate(-15deg);
@@ -103,10 +106,18 @@ header{
     background-color: #FFC49B;
 }
 
+#secondSection .left{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+
 #fourthSection img{
     width: 90%;
     border-radius: 20px;
     margin: 5%;
+
 }
 
 #thirdSection .right{

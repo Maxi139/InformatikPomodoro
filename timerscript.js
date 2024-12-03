@@ -7,6 +7,8 @@ var slider = document.getElementById("timerBg");
 let updateIntervalId;
 var running = false;
 
+var Paused = false;
+
 var controllerUP = false;
 
 var breakOrPause = false;
@@ -40,7 +42,7 @@ setInterval(increaseTime, 1000);
 
 function Start() {
     if(controllerUP){toggleSettings();}
-    if(!running){
+    if(!running && !Paused){
         if(breakOrPause){
             running = !running;
             document.getElementById("startBtn").classList.toggle("running");
@@ -49,7 +51,6 @@ function Start() {
             timerMin = PauseTime;
             timerSec = timerMin*60;
             updateFooterDisplay();
-            slider.style.animation = "topToBottom " + timerSec +"s linear 1 reverse";
             updateIntervalId = setInterval(Update, 10);
         }else{
             running = !running;
@@ -58,50 +59,81 @@ function Start() {
             time = 0;
             timerMin = StartTime;
             timerSec = timerMin*60;
-            slider.style.animation = "topToBottom " + timerSec+"s linear 1 forwards";
+            updateIntervalId = setInterval(Update, 10);
+        }
+    }
+    else if(!running && Paused){
+        Paused = false;
+        if(breakOrPause){
+            running = !running;
+            document.getElementById("startBtn").classList.toggle("running");
+            document.getElementById("startBtn").innerHTML = "läuft...";
+            time = 0;
+            timerMin = PauseTime;
+            timerSec = timerMin*60;
+            updateFooterDisplay();
+            updateIntervalId = setInterval(Update, 10);
+        }else{
+            running = !running;
+            document.getElementById("startBtn").classList.toggle("running");
+            document.getElementById("startBtn").innerHTML = "läuft...";
+            time = 0;
+            timerMin = StartTime;
+            timerSec = timerMin*60;
             updateIntervalId = setInterval(Update, 10);
         }
     }
 }
 
 function Update() {
-    timeLearned = time;
-    timeLeft = timerSec - timeLearned;
-
-    if (timeLeft <= 0) {
-        running = !running;
-        document.getElementById("startBtn").classList.toggle("running");
-        document.getElementById("startBtn").innerHTML = "Start";
-        slider.style.animation = "none";
+    if(!Paused){
+        timeLearned = time;
+        timeLeft = timerSec - timeLearned;
+        
         if(breakOrPause){
-            slider.style.height = "100%";
-            StartAudio.play();
-            document.getElementById("overlay").style.animation = "overlayAnimation 1s";
-            setTimeout(() => document.getElementById("overlay").style.animation = "none", 1000);
+            let remainingPercentage = 100-(timeLeft / timerSec * 100);
+            slider.style.height = (remainingPercentage / 100) * window.innerHeight + "px";
         }else{
-            slider.style.height = "0vh";
-            PauseAudio.play();
-            document.getElementById("overlay").style.animation = "overlayAnimation 1s";
-            setTimeout(() => document.getElementById("overlay").style.animation = "none", 1000);
+            let remainingPercentage = timeLeft / timerSec * 100;
+            slider.style.height = (remainingPercentage / 100) * window.innerHeight + "px";
         }
-        timeLeft = 0;
-        clearInterval(updateIntervalId);
-        delay(100).then(() => Start());
-        if(!breakOrPause){breakOrPause = true;}else{breakOrPause = false;}
-    }
+        
 
-    timeLeftMin = timeLeft / 60;
-    timeLeftMin = Math.floor(timeLeftMin);
-    timeLeftSec = timeLeft-(timeLeftMin*60);
+        if (timeLeft <= 0) {
+            running = !running;
+            document.getElementById("startBtn").classList.toggle("running");
+            document.getElementById("startBtn").innerHTML = "Start";
+            
+            if(breakOrPause){
+                slider.style.height = "100%";
+                StartAudio.play();
+                document.getElementById("overlay").style.animation = "overlayAnimation 1s";
+                setTimeout(() => document.getElementById("overlay").style.animation = "none", 1000);
+            }else{
+                slider.style.height = "0%";
+                PauseAudio.play();
+                document.getElementById("overlay").style.animation = "overlayAnimation 1s";
+                setTimeout(() => document.getElementById("overlay").style.animation = "none", 1000);
+            }
+            timeLeft = 0;
+            clearInterval(updateIntervalId);
+            delay(100).then(() => Start());
+            if(!breakOrPause){breakOrPause = true;}else{breakOrPause = false;}
+        }
 
-    if(timeLeftSec.toString().length == 1){
-        timeLeftSec = "0" + timeLeftSec;
-    }
-    if(timeLeftMin.toString().length == 1){
-        timeLeftMin = "0" + timeLeftMin;
-    }
-    document.getElementById("timeLeft").innerHTML = timeLeftMin.toString() +":"+ timeLeftSec.toString();
+        timeLeftMin = timeLeft / 60;
+        timeLeftMin = Math.floor(timeLeftMin);
+        timeLeftSec = timeLeft - (timeLeftMin * 60);
 
+        if(timeLeftSec.toString().length == 1){
+            timeLeftSec = "0" + timeLeftSec;
+        }
+        if(timeLeftMin.toString().length == 1){
+            timeLeftMin = "0" + timeLeftMin;
+        }
+        document.getElementById("timeLeft").innerHTML = timeLeftMin.toString() + ":" + timeLeftSec.toString();
+
+    }
 }
 
 function updateTimerDisplay(){
@@ -210,4 +242,3 @@ function setAudioVolume(number){
 
 volumeSlider.value = 50;
 setAudioVolume(50);
-
