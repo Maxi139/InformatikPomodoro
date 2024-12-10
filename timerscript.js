@@ -17,6 +17,8 @@ var PauseTime = 5;
 var PauseAudio = new Audio('Ping Sound 89718.mp3');
 var StartAudio = new Audio('Ding Sound.mp3');
 
+const startBtn = document.getElementById("startBtn");
+
 var timeLeftSec = 0;
 
 const Themes = ["#EEEEEE---#FF4A4A---#C4FF93---#121212---#EEEEEE76", "#F4ECD6---#62466B---#8C93A8---#F4ECD6---#F4ECD676", "#EEE---#558B6E---#06D6A0---#EEE---#EEEEEE76", "#EEE---#F79256---#FBD1A2---#EEE---#EEEEEE76", "#EEE---#3C91E6---#B8F2E6---#EEE---#EEEEEE76", "#EEE---#190B28---#685762---#FFE9CE---#EEEEEE46"];
@@ -40,62 +42,52 @@ function increaseTime() {
 
 setInterval(increaseTime, 1000);
 
+var firstStart = true;
 function Start() {
-    if(controllerUP){toggleSettings();}
-    if(!running && !Paused){
-        if(breakOrPause){
-            running = !running;
-            document.getElementById("startBtn").classList.toggle("running");
-            document.getElementById("startBtn").innerHTML = "läuft...";
-            time = 0;
-            timerMin = PauseTime;
-            timerSec = timerMin*60;
-            updateFooterDisplay();
-            updateIntervalId = setInterval(Update, 10);
-        }else{
-            running = !running;
-            document.getElementById("startBtn").classList.toggle("running");
-            document.getElementById("startBtn").innerHTML = "läuft...";
-            time = 0;
-            timerMin = StartTime;
-            timerSec = timerMin*60;
-            updateIntervalId = setInterval(Update, 10);
-        }
+    if(firstStart){
+        time = 0;
+        timerMin = StartTime;
+        timerSec = timerMin*60;
+        firstStart = false;
     }
-    else if(!running && Paused){
-        Paused = false;
-        if(breakOrPause){
-            running = !running;
-            document.getElementById("startBtn").classList.toggle("running");
-            document.getElementById("startBtn").innerHTML = "läuft...";
-            time = 0;
-            timerMin = PauseTime;
-            timerSec = timerMin*60;
-            updateFooterDisplay();
-            updateIntervalId = setInterval(Update, 10);
-        }else{
-            running = !running;
-            document.getElementById("startBtn").classList.toggle("running");
-            document.getElementById("startBtn").innerHTML = "läuft...";
-            time = 0;
-            timerMin = StartTime;
-            timerSec = timerMin*60;
-            updateIntervalId = setInterval(Update, 10);
-        }
+    isPaused = false;
+    Paused = false;
+    if(breakOrPause){
+        running = !running;
+        document.getElementById("startBtn").classList.toggle("running");
+        document.getElementById("startBtn").innerHTML = "Pause";
+        time = 0;
+        timerMin = PauseTime;
+        timerSec = timerMin*60;
+        updateFooterDisplay();
+        updateIntervalId = setInterval(Update, 10);
+    }else{
+        running = !running;
+        document.getElementById("startBtn").classList.toggle("running");
+        document.getElementById("startBtn").innerHTML = "Pause";
+        updateIntervalId = setInterval(Update, 10);
     }
 }
 
+function Pause(){
+    running = false;
+    console.log("Should Pause");
+    Paused = true;
+    document.getElementById("startBtn").innerHTML = "Weiter";
+}
 function Update() {
     if(!Paused){
         timeLearned = time;
         timeLeft = timerSec - timeLearned;
-        
-        if(breakOrPause){
-            let remainingPercentage = 100-(timeLeft / timerSec * 100);
-            slider.style.height = (remainingPercentage / 100) * window.innerHeight + "px";
+        console.log(breakOrPause)
+        if(breakOrPause == true){
+            console.log("1");
+            let remainingPercentage = 1-(timeLeft / timerSec);
+            slider.style.height = (remainingPercentage) * window.innerHeight + "px";
         }else{
-            let remainingPercentage = timeLeft / timerSec * 100;
-            slider.style.height = (remainingPercentage / 100) * window.innerHeight + "px";
+            console.log("2");
+            let remainingPercentage = timeLeft / timerSec;
+            slider.style.height = (remainingPercentage) * window.innerHeight + "px";
         }
         
 
@@ -105,19 +97,17 @@ function Update() {
             document.getElementById("startBtn").innerHTML = "Start";
             
             if(breakOrPause){
-                slider.style.height = "100%";
+                breakOrPause = false;
                 StartAudio.play();
                 document.getElementById("overlay").style.animation = "overlayAnimation 1s";
-                setTimeout(() => document.getElementById("overlay").style.animation = "none", 1000);
             }else{
-                slider.style.height = "0%";
+                breakOrPause = true;
                 PauseAudio.play();
                 document.getElementById("overlay").style.animation = "overlayAnimation 1s";
-                setTimeout(() => document.getElementById("overlay").style.animation = "none", 1000);
             }
             timeLeft = 0;
             clearInterval(updateIntervalId);
-            delay(100).then(() => Start());
+            Start();
             if(!breakOrPause){breakOrPause = true;}else{breakOrPause = false;}
         }
 
@@ -242,3 +232,11 @@ function setAudioVolume(number){
 
 volumeSlider.value = 50;
 setAudioVolume(50);
+
+startBtn.addEventListener('click', function(){
+    if(running){
+        Pause();
+    }else{
+        Start();
+    };
+});
