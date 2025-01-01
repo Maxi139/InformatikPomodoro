@@ -33,7 +33,8 @@ function updateFooterDisplay() {
 
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
-  }
+}
+
 updateFooterDisplay();
 
 function increaseTime() {
@@ -71,7 +72,6 @@ function Start() {
 
 function Pause(){
     running = false;
-    console.log("Should Pause");
     Paused = true;
     document.getElementById("startBtn").innerHTML = "Weiter";
 }
@@ -81,11 +81,9 @@ function Update() {
         timeLeft = timerSec - timeLearned;
         console.log(breakOrPause)
         if(breakOrPause == true){
-            console.log("1");
             let remainingPercentage = 1-(timeLeft / timerSec);
             slider.style.height = (remainingPercentage) * window.innerHeight + "px";
         }else{
-            console.log("2");
             let remainingPercentage = timeLeft / timerSec;
             slider.style.height = (remainingPercentage) * window.innerHeight + "px";
         }
@@ -233,10 +231,23 @@ function setAudioVolume(number){
 volumeSlider.value = 50;
 setAudioVolume(50);
 
-startBtn.addEventListener('click', function(){
+$(startBtn).click(function(){
     if(running){
         Pause();
     }else{
         Start();
     };
+});
+
+$(document).keyup(function(e) {
+    if (document.activeElement !== startBtn) {
+        var code = e.which;
+        if (code == 13) {
+            if (running) {
+                Pause();
+            } else {
+                Start();
+            }
+        }
+    }
 });
