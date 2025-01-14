@@ -32,19 +32,57 @@ h1{
 }
 
 #callToActionButton{
+    position: relative;
     text-decoration: none;
-    background-color: #6CCFF6;
+    background-color: none;
     font-weight: 600;
     padding: 1% 3%;
-    border-radius: 15px;
 
     font-size: 1.8rem;
 
     margin: 5%;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    height: 50px;
+}
+
+#callToActionButton::before{
+    z-index: -1;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background-color: #6CCFF6;
+
+}
+
+#callToActionButton::after{
+    z-index: -1;
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: -6px;
+    width: 50px;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #aee8ff87;
+
+    transition: all .3s ease-in-out;
+}
+
+#callToActionButton:hover::after{
+    background-color: #aee8ff;
+    width: 100%;
+    border-radius: 15px;
+    left: 0;
 }
 
 p{
-    font-size: 2rem;
+    font-size: 3rem;
     width: 90%;
     margin: 5%;
 }
@@ -106,12 +144,19 @@ header{
     background-color: #FFC49B;
 }
 
-#secondSection .left{
+#secondSection{
     display: flex;
     justify-content: center;
-    height: 100%;
+    height: 100vh;
+    width: 100%;
     align-items: center;
 }
+
+#secondSection .left img{
+    width: 40vw;
+    margin: 25vh 5vw 25vh 5vw;
+}
+
 
 #fourthSection img{
     width: 90%;
@@ -121,13 +166,13 @@ header{
 }
 
 #thirdSection .right{
-    height: 90%;
+    height: 100%;
     margin: 0;
 }
 
 #thirdSection .right .images{
     position: absolute;
-    right: 5vw;
+    right: 0vw;
 }
 
 #thirdSection .right .images *{
@@ -155,20 +200,227 @@ header{
 }
 
 #thirdSection .right .images #thfirstImg:hover + #thsecondImg{
-    transform: rotate(-15deg) translateX(-50px) translateY(-50px);
+    transform: rotate(-15deg) translateX(-100px) translateY(-50px);
 }
 
 
 #thirdSection .right .images #thfirstImg:hover ~ #ththirdImg{
-    transform: rotate(15deg) translateX(50px) translateY(-50px);
+    transform: rotate(15deg) translateX(100px) translateY(-50px);
 }
 
 
 #thirdSection .right .images #thfirstImg:hover ~ #thfourthImg{
-    transform: rotate(-30deg) translateX(-100px) translateY(-100px);
+    transform: rotate(-30deg) translateX(-150px) translateY(-100px);
 }
 
 
 #thirdSection .right .images #thfirstImg:hover ~ #thfiftImg{
-    transform: rotate(30deg) translateX(100px) translateY(-100px);
+    transform: rotate(30deg) translateX(150px) translateY(-100px);
+}
+
+@media (max-width: 400px) {
+    body{
+        height: 800vh;
+    }
+    section{
+        width: 100%;
+        height: 200vh;
+        overflow: hidden;
+    }
+    
+    h1{
+        font-size: 3rem;
+    }
+
+    #callToActionButton{
+        border-radius: 15px;
+        background-color: #6CCFF6;
+        border-radius: 15px;
+    }
+    
+    #callToActionButton::before{
+        width: 0;
+        height: 0;
+        background-color: #6ccff600;
+    
+    }
+    
+    #callToActionButton::after{
+        width: 0;
+        height: 0;
+        background-color: #aee8ff00;
+    
+        transition: none;
+    }
+    
+    #callToActionButton:hover::after{
+        background-color: #aee8ff00;
+        width: 0;
+        border-radius:0;
+    }
+    
+    p{
+        font-size: 2rem;
+        width: 100%;
+    }
+    
+    .left{
+        height: 50%;
+        width: 100%;
+    }
+    
+    .right{
+        height: 50%;
+        width: 100%;
+        text-align: left;
+    }
+    
+    .right img{
+        position: absolute;
+        height: 80vh;
+        right: 15vw;
+    }
+    
+    
+    header{
+        width: 100vw;
+        height: 10vh;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        background-color: #FFC49B;
+    }
+    
+    #secondSection{
+        display:block;
+        height: 200vh;
+    }
+    
+    #secondSection .left img{
+        width: 90vw;
+        margin: 25vh 5vw 25vh 5vw;
+    }
+
+    .right{
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .left{
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .right p{
+        width: 90%;
+    }
+    
+    
+    #fourthSection img{
+        width: 90%;
+        border-radius: 20px;
+        margin: 5%;
+    }
+    
+    #thirdSection .right{
+        height: 100%;
+        margin: 0;
+    }
+    
+    #thirdSection .right .images{
+        position: absolute;
+        right: 0vw;
+    }
+    
+    #thirdSection .right .images *{
+        transition: none;
+    }
+    
+    #thirdSection .right .images #thfirstImg{
+        z-index: 10;
+    }
+    
+    #thirdSection .right .images #thsecondImg{
+        z-index: 9;
+    }
+    
+    #thirdSection .right .images #ththirdImg{
+        z-index: 8;
+    }
+    
+    #thirdSection .right .images #thfourthImg{
+        z-index: 7;
+    }
+    
+    #thirdSection .right .images #thfiftImg{
+        z-index: 6;
+    }
+}
+
+
+@media (pointer:none), (pointer:coarse) {
+    #thirdSection .right .images #thfirstImg + #thsecondImg{
+        transform: rotate(-2deg) translateX(-30px) translateY(-5px);
+    }
+    
+    
+    #thirdSection .right .images #thfirstImg ~ #ththirdImg{
+        transform: rotate(2deg) translateX(30px) translateY(-5px);
+    }
+    
+    
+    #thirdSection .right .images #thfirstImg ~ #thfourthImg{
+        transform: rotate(-4deg) translateX(-45px) translateY(-10px);
+    }
+    
+    
+    #thirdSection .right .images #thfirstImg ~ #thfiftImg{
+        transform: rotate(4deg) translateX(45px) translateY(-10px);
+    }
+
+    #thirdSection .right .images #thfirstImg:hover + #thsecondImg{
+        transform: rotate(-2deg) translateX(-30px) translateY(-5px);
+    }
+    
+    
+    #thirdSection .right .images #thfirstImg:hover ~ #ththirdImg{
+        transform: rotate(2deg) translateX(30px) translateY(-5px);
+    }
+    
+    
+    #thirdSection .right .images #thfirstImg:hover ~ #thfourthImg{
+        transform: rotate(-4deg) translateX(-45px) translateY(-10px);
+    }
+    
+    
+    #thirdSection .right .images #thfirstImg:hover ~ #thfiftImg{
+        transform: rotate(4deg) translateX(45px) translateY(-10px);
+    }
+    .right #firstImg{
+        z-index: 30;
+        filter: drop-shadow(5px 5px 5px #222);
+    }
+    .right #secondImg{
+        transition: none;
+        filter: drop-shadow(5px 5px 5px #222);
+        transform: rotate(-15deg);
+        right: 15vw;
+    }
+    .right #thirdImg{
+        transition: none;
+        filter: drop-shadow(5px 5px 5px #222);
+        transform: rotate(15deg);
+        right: 10vw;
+    }
+
+    #firstImg:hover + #secondImg{
+        transition: none;
+        right: 15vw;
+    }
+    
+    #firstImg:hover ~ #thirdImg{
+        right: 10vw;
+    }
 }
